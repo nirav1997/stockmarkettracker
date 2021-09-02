@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Table V01</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="https://colorlib.com/etc/tb/Table_Responsive_v1/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/tb/Table_Responsive_v1/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/tb/Table_Responsive_v1/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/tb/Table_Responsive_v1/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/tb/Table_Responsive_v1/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vhttps://colorlib.com/etc/tb/Table_Responsive_v1/endor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/tb/Table_Responsive_v1/css/util.css">
+	<link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/tb/Table_Responsive_v1/css/main.css">
+<!--===============================================================================================-->
+
+</head>
+<body>
+	<div class="limiter">
+		<div class="table100">
+			<table>
+				<h1>Inventory</h1>
+				<thead>
+					<tr class="table100-head">
+						<th class="column4">Index</th>
+						<th class="column1">Stock Name</th>
+						<th class="column3">Begin Date</th>
+						<th class="column3">End Date</th>
+					</tr>
+				</thead>
+				<tbody id='main_tab'></tbody>
+			</table>
+		</div>
+	</div>
+
+
+	
+
+<!--===============================================================================================-->	
+	<script src="https://colorlib.com/etc/tb/Table_Responsive_v1/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="https://colorlib.com/etc/tb/Table_Responsive_v1/vendor/bootstrap/js/popper.js"></script>
+	<script src="https://colorlib.com/etc/tb/Table_Responsive_v1/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="https://colorlib.com/etc/tb/Table_Responsive_v1/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="https://colorlib.com/etc/tb/Table_Responsive_v1/js/main.js"></script>
+
+</body>
+<script>
+	var stock_list = {{ stock|safe }};
+	var begin_date_list = {{ begin_date|safe }};
+	var end_date_list = {{ end_date|safe }};
+
+	for (let i = 0; i < stock_list.length; i++) {
+		var new_html = `<tr>
+							<td class="column4">`+i+`</td>
+							<td class="column1">`+stock_list[i]+`</td>
+							<td class="column3">`+begin_date_list[i]+`</td>
+							<td class="column3">`+end_date_list[i]+`</td>
+						</tr>`;
+		document.getElementById('main_tab').innerHTML += new_html;
+	}
+</script>
+</html>
