@@ -85,7 +85,8 @@ DATABASES = {
 }
 
 CRONJOBS = [
-    ('0 0 * * *', 'app.get_daily_nasdaq.main')
+   #('*/2 * * * *', 'app.get_daily_nasdaq.main'),
+   #('*/15 * * * *', 'app.get_daily_alpha.main')
 ]
 
 # Password validation

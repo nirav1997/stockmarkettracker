@@ -13,8 +13,15 @@ from collections import defaultdict
 from selenium import webdriver
 import os
 from datetime import datetime
+#from pyvirtualdisplay import Display
+from app.models import stocks
+
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 def main():
+    print("Starting Display")
+    
+    # display = Display(visible=0, size=(800, 800))  
+    # display.start()
     print("Running", datetime.now())
     PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
     chrome_options = webdriver.ChromeOptions()
@@ -32,10 +39,28 @@ def main():
     json_ = json.loads(text)
 
     stocks_df = pd.DataFrame.from_dict(json_['data']['rows'])
-    stocks_df.to_csv(f"data/{str(datetime.now())}.csv", index=False)
-    print(f"Saving to data/{str(datetime.now())}.csv")
+    print(stocks_df.columns)
+
     for stock_i in range(len(stocks_df)):
+        date            = datetime.now()
+        stock_ticker    = stocks_df['symbol'][stock_i]
+        stock_name      = stocks_df['name'][stock_i]
+        stocks_price    = float(stocks_df['lastsale'][stock_i].strip('$'))
+        stock_time      = 1 if datetime.now().time() > datetime.strptime("13:30","%H:%M").time() else 0
+        stock_volume    = float(stocks_df['volume'][stock_i])
+
+        if stock_time == 1:
+            stock_date = datetime.strptime(str(datetime.now().date())+" 16:00","%Y-%m-%d %H:%M")
+        else:
+            stock_date = datetime.strptime(str(datetime.now().date())+" 09:30","%Y-%m-%d %H:%M")
         pass
+
+        stock = stocks(date        = stock_date,
+                        stock       = stock_name,
+                        ticker      = stock_ticker,
+                        closePrice  = stocks_price,
+                        volume      = stock_volume)
+        stock.save()
     
     
         
